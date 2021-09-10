@@ -12,6 +12,10 @@ class Property extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'fields' => 'array'
+    ];
+
     protected $guarded = [];
 
     public function getPropertyType()

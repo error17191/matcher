@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Property;
+use App\Models\SearchProfile;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Property::factory()->count(20)->create();
+        SearchProfile::factory()->count(2000)->create();
     }
 }

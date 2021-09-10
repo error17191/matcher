@@ -13,6 +13,10 @@ class SearchProfile extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'searchFields' => 'array'
+    ];
+
     protected $guarded = [];
 
     public function getSearchProfilePropertyType()
