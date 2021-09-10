@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Matcher\SearchProfileCollection;
+use App\Models\Property;
+use App\Models\SearchProfile;
 use Tests\TestCase;
 
 class MatchingTest extends TestCase
@@ -85,17 +86,20 @@ class MatchingTest extends TestCase
         );
 
         $matchedSearchProfiles = $searchProfiles->matching($property)->toMatchedSearchProfiles();
-        $this->assertEquals($matchedSearchProfiles->count(),2);
+
+
+        $this->assertEquals($matchedSearchProfiles->count(),3);
         $matchedSearchProfile1 = $matchedSearchProfiles->findBySearchProfileId(1);
         $matchedSearchProfile2 = $matchedSearchProfiles->findBySearchProfileId(4);
+        $matchedSearchProfile3 = $matchedSearchProfiles->findBySearchProfileId(4);
 
         $this->assertNotNull($matchedSearchProfile1);
         $this->assertNotNull($matchedSearchProfile2);
 
-        $this->assertEquals($matchedSearchProfile1->strictMatchingCount(), 2);
-        $this->assertEquals($matchedSearchProfile1->looseMatchesCount(), 1);
+        $this->assertEquals($matchedSearchProfile1->getStrictMatchesCount(), 2);
+        $this->assertEquals($matchedSearchProfile1->getLooseMatchesCount(), 1);
 
-        $this->assertEquals($matchedSearchProfile2->strictMatchingCount(), 2);
-        $this->assertEquals($matchedSearchProfile2->looseMatchesCount(), 0);
+        $this->assertEquals($matchedSearchProfile2->getStrictMatchesCount(), 2);
+        $this->assertEquals($matchedSearchProfile2->getLooseMatchesCount(), 0);
     }
 }
