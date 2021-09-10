@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static SearchProfile make(array $attributes)
  */
-
 class SearchProfile extends Model
 {
     use HasFactory;
@@ -27,6 +27,11 @@ class SearchProfile extends Model
     public function getSearchProfileFields()
     {
         return $this->searchFields;
+    }
+
+    public function scopeOfType(Builder $builder, $type)
+    {
+        $builder->where('propertyType', $type);
     }
 
 

@@ -36,7 +36,7 @@ class SearchProfileCollection
         return $this;
     }
 
-    public function toMatchedSearchProfiles()
+    public function toMatchedSearchProfilesCollection()
     {
         return new MatchedSearchProfileCollection(...collect($this->matchers)->map(function (PropertySearchProfileMatcher $matcher) {
             return new MatchedSearchProfile($matcher->getSearchProfile()->id, $matcher->strictMatchingFields(), $matcher->looseMatchingFields());

@@ -29,11 +29,20 @@ class MatchedSearchProfileCollection
                 'strictMatchesCount' => $matchedSearchProfile->getStrictMatchesCount(),
                 'looseMatchesCount' => $matchedSearchProfile->getLooseMatchesCount(),
             ];
-        })->all();
+        })->values()->all();
     }
 
     public function findBySearchProfileId($id): ?MatchedSearchProfile
     {
         return $this->matchedSearchProfiles->get($id);
+    }
+
+    public function sortByScore()
+    {
+        $this->matchedSearchProfiles = $this->matchedSearchProfiles->sortByDesc(function (MatchedSearchProfile $matchedSearchProfile) {
+            return $matchedSearchProfile->getScore();
+        },);
+
+        return $this;
     }
 }

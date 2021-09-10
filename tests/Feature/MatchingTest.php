@@ -85,7 +85,7 @@ class MatchingTest extends TestCase
             $searchProfile5
         );
 
-        $matchedSearchProfiles = $searchProfiles->matchingProperty($property)->toMatchedSearchProfiles();
+        $matchedSearchProfiles = $searchProfiles->matchingProperty($property)->toMatchedSearchProfilesCollection();
 
 
         $this->assertEquals($matchedSearchProfiles->count(),3);
