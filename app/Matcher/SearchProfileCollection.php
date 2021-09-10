@@ -22,7 +22,7 @@ class SearchProfileCollection
      *
      * @param Property $property
      */
-    public function matching(Property $property)
+    public function matchingProperty(Property $property)
     {
         $this->searchProfiles->filter(function ($searchProfile) use ($property) {
             $matcher = PropertySearchProfileMatcher::create($property, $searchProfile);
