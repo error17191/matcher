@@ -53,7 +53,7 @@ class PropertySearchProfileMatcher
             return false;
         }
 
-        return count($this->strictMatches) + count($this->looseMatches) > 0;
+        return true;
     }
 
     public function strictMatchingFields()
@@ -73,7 +73,7 @@ class PropertySearchProfileMatcher
 
     protected function propertyHasMissingFields()
     {
-        return collect($this->searchProfile->getSearchProfileFields())->keys()
+        return collect($this->searchProfile->getSearchProfileFields())->whereNotNull()->keys()
                 ->diff(collect($this->property->getPropertyFields())->whereNotNull()->keys())->count() > 0;
     }
 
@@ -90,7 +90,7 @@ class PropertySearchProfileMatcher
                 continue;
             }
 
-            if ($searchFieldValue == $propertyFieldValue) {
+            if (is_null($searchFieldValue) || $searchFieldValue == $propertyFieldValue) {
                 $this->strictMatches[] = $searchField;
                 continue;
             }
