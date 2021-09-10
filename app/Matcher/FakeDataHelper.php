@@ -79,19 +79,19 @@ class FakeDataHelper
         $propertyFields = [];
         foreach ($randomFields as $field) {
             if ($field['type'] == 'boolean') {
-                $propertyFields[$field['name']] = (boolean)rand(0, 1);
+                $propertyFields[$field['name']] = self::randomBoolean();
                 continue;
             }
             if ($field['name'] == 'rooms') {
-                $propertyFields[$field['name']] = rand(1, 6);
+                $propertyFields[$field['name']] = self::randomNumber(1,6);
                 continue;
             }
             if ($field['name'] == 'yearConstruction') {
-                $propertyFields[$field['name']] = rand(2010, 2020);
+                $propertyFields[$field['name']] = self::randomNumber(2010, 2020);
                 continue;
             }
 
-            $propertyFields[$field['name']] = rand(100, 2000);
+            $propertyFields[$field['name']] = self::randomNumber(100, 2000);
 
         }
 
@@ -106,26 +106,48 @@ class FakeDataHelper
 
         foreach ($randomFields as $field) {
             if ($field['type'] == 'boolean') {
-                $searchFields[$field['name']] =  (boolean)rand(0, 1);
+                $searchFields[$field['name']] =  self::randomBoolean();
                 continue;
             }
             if ($field['name'] == 'rooms') {
-                $lower = rand(1, 6);
-                $upper = rand($lower, 6);
-                $searchFields[$field['name']] =  [$lower, $upper];
+                $searchFields[$field['name']] =  self::randomRange(1, 6);
                 continue;
             }
             if ($field['name'] == 'yearConstruction') {
-                $lower = rand(2010, 2020);
-                $upper = rand($lower, 2020);
-                $searchFields[$field['name']] =  [$lower, $upper];
+                $searchFields[$field['name']] =  self::randomRange(2010,2020);
                 continue;
             }
-            $lower = rand(100, 2000);
-            $upper = rand($lower, 2000);
-            $searchFields[$field['name']] =  [$lower, $upper];
+            $searchFields[$field['name']] =  self::randomRange(100, 2000);
         }
 
         return $searchFields;
+    }
+
+    protected static function randomBoolean()
+    {
+        if(self::useNullHere()){
+            return null;
+        }
+
+        return (bool) rand(0,1);
+    }
+
+    protected static function randomNumber($lower, $upper)
+    {
+        return self::useNullHere() ? null : rand($lower, $upper);
+    }
+
+    protected static function randomRange($minLower, $maxUpper)
+    {
+        $lower = self::useNullHere() ? null : rand($minLower, $maxUpper);
+
+        $upper = self::useNullHere() ? null : rand(is_null($lower) ? $minLower : $lower, $maxUpper);
+
+        return [$lower, $upper];
+    }
+
+    private static function useNullHere()
+    {
+        return rand(1,10) == 10;
     }
 }
