@@ -15,7 +15,7 @@
 
 ##### Score Calculation Formula
 
-- `score = strictMatchesCount + looseMatchesCount * 0.7`
+- `score = strictMatchesCount + looseMatchesCount * 0.75`
 
 ##### The API endpoint
 - After running `php artisan migrate --seed` you will have 20 properties (mostly ids from 1 to 20) and 2000 search profiles
