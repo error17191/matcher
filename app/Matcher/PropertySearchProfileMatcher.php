@@ -40,13 +40,10 @@ class PropertySearchProfileMatcher
 
     public function areMatching()
     {
-        if (!$this->areOfSameType()) {
+        if (!$this->areOfSameType() || $this->propertyHasMissingFields()) {
             return false;
         }
 
-        if ($this->propertyHasMissingFields()) {
-            return false;
-        }
         try {
             $this->checkFieldsMatching();
         } catch (FieldMismatchingException $exception) {
@@ -136,9 +133,9 @@ class PropertySearchProfileMatcher
         ]);
     }
 
-    protected function isAnyConditionTrue(array $condtions)
+    protected function isAnyConditionTrue(array $conditions)
     {
-        foreach ($condtions as $condtion) {
+        foreach ($conditions as $condtion) {
             if ($condtion) {
                 return true;
             }
