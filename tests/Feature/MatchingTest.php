@@ -90,16 +90,20 @@ class MatchingTest extends TestCase
 
         $this->assertEquals($matchedSearchProfiles->count(),3);
         $matchedSearchProfile1 = $matchedSearchProfiles->findBySearchProfileId(1);
-        $matchedSearchProfile2 = $matchedSearchProfiles->findBySearchProfileId(4);
+        $matchedSearchProfile2 = $matchedSearchProfiles->findBySearchProfileId(3);
         $matchedSearchProfile3 = $matchedSearchProfiles->findBySearchProfileId(4);
 
         $this->assertNotNull($matchedSearchProfile1);
         $this->assertNotNull($matchedSearchProfile2);
+        $this->assertNotNull($matchedSearchProfile3);
 
         $this->assertEquals($matchedSearchProfile1->getStrictMatchesCount(), 2);
         $this->assertEquals($matchedSearchProfile1->getLooseMatchesCount(), 1);
 
-        $this->assertEquals($matchedSearchProfile2->getStrictMatchesCount(), 2);
-        $this->assertEquals($matchedSearchProfile2->getLooseMatchesCount(), 0);
+        $this->assertEquals($matchedSearchProfile2->getStrictMatchesCount(), 1);
+        $this->assertEquals($matchedSearchProfile2->getLooseMatchesCount(), 1);
+
+        $this->assertEquals($matchedSearchProfile3->getStrictMatchesCount(), 2);
+        $this->assertEquals($matchedSearchProfile3->getLooseMatchesCount(), 0);
     }
 }
